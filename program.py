@@ -1,10 +1,11 @@
-import json
-
-from MatrixPopulator import MatrixPopulator as mp
+import ArgumentParser
+from MatrixFiller import MatrixFiller as mF
 import StructureConstructor
+import JSONCreator
+
 
 if __name__ == "__main__":
-    adjacency_matrix = mp.populate_matrices(5)
+    number_of_graphs, min_num_of_vertices, max_num_of_vertices, if_pretty = ArgumentParser.parse_args()
+    adjacency_matrix = mF.populate_matrices(number_of_graphs, min_num_of_vertices, max_num_of_vertices)
     graphs_list = StructureConstructor.construct_structure(adjacency_matrix)
-    with open('data.json', 'w') as f:
-        json.dump(graphs_list, f)
+    JSONCreator.create_json(graphs_list, if_pretty)
